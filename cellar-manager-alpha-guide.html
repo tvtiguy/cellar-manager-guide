@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cellar Manager - Alpha User Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .wine-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .welcome-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .welcome-box h2 {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        
+        .welcome-box p {
+            font-size: 1.05em;
+            line-height: 1.7;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .step {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .step h3 {
+            color: #333;
+            font-size: 1.3em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .step p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+        
+        .tip-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .tip-box strong {
+            color: #856404;
+        }
+        
+        .feature-highlight {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .feature-highlight h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0 8px 30px;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .workflow-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .workflow-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .workflow-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .workflow-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .workflow-card .emoji {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .feedback-section {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 40px;
+            color: #333;
+        }
+        
+        .feedback-section h2 {
+            color: #333;
+            border-bottom: none;
+            margin-bottom: 15px;
+        }
+        
+        .feedback-questions {
+            background: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .feedback-questions ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feedback-questions li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .feedback-questions li:before {
+            content: "?";
+            position: absolute;
+            left: 0;
+            background: #667eea;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .screenshot {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin: 15px 0;
+        }
+
+        .screenshot-group {
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .screenshot-group img {
+            width: 100%;
+            display: block;
+            margin: 0;
+            padding: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .walkthrough-step {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #764ba2;
+        }
+
+        .walkthrough-step h4 {
+            color: #764ba2;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+        }
+
+        .walkthrough-step p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="wine-icon">🍷</div>
+            <h1>Cellar Manager</h1>
+            <p class="subtitle">Alpha User Guide - Getting Started</p>
+        </div>
+        
+        <div class="content">
+            <div class="welcome-box">
+                <h2>Welcome, Alpha Tester!</h2>
+                <p>Thank you for being part of our alpha testing group. This guide will walk you through setting up your wine collection and help you explore the key features. Your feedback is invaluable — we want to know what works, what doesn't, and how we can make this better for wine enthusiasts like you.</p>
+            </div>
+            
+            <div class="section">
+                <h2>🚀 Getting Started</h2>
+                
+                <div class="step">
+                    <h3><span class="step-number">1</span>Sign Up & Verify Email</h3>
+                    <p>Create your account at <strong>cellar-manager-app.vercel.app</strong>. You'll receive a verification email — click the link to activate your account. Then sign in to get started!</p>
+                </div>
+                
+                <div class="step">
+                    <h3><span class="step-number">2</span>Create Your First Cellar</h3>
+                    <p>Think of "Cellars" as storage locations around your home. These could be:</p>
+                    <ul class="feature-list">
+                        <li>An actual wine cellar or wine room</li>
+                        <li>A 6-bottle rack in your kitchen</li>
+                        <li>A wine fridge in your dining room</li>
+                        <li>A storage closet with cases</li>
+                    </ul>
+                    <p style="margin-top: 15px;">Click <strong>"+ Create Cellar"</strong> and give it a descriptive name and note (e.g., "Kitchen Wine Rack - 6-bottle rack next to the refrigerator").</p>
+                </div>
+                
+                <div class="step">
+                    <h3><span class="step-number">3</span>Set Up Storage</h3>
+                    <p>Each cellar can have <strong>Rack Storage</strong> (shelves with individual bottle slots) and <strong>Case Storage</strong> (for bottles stored in their original cases).</p>
+                    <p style="margin-top: 10px;"><strong>For Racks:</strong></p>
+                    <ul class="feature-list">
+                        <li>Click "+ Add Rack" to create a rack</li>
+                        <li>Click "+ Add Shelf" to add shelves to your rack</li>
+                        <li>Specify how many bottles each shelf holds</li>
+                    </ul>
+                    <div class="tip-box">
+                        <strong>💡 Tip:</strong> Match your shelves to your actual physical storage. If you have a 6-bottle counter rack, create one shelf with 6 slots.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🍾 Adding Bottles - Three Ways</h2>
+                <p style="margin-bottom: 20px;">When you click on any empty slot, you'll see three options for adding a bottle:</p>
+                
+                <div class="workflow-options">
+                    <div class="workflow-card">
+                        <span class="emoji">🤖</span>
+                        <h4>1. Analyze Label (Recommended!)</h4>
+                        <p><strong>This is the star feature</strong> — our AI reads your wine labels and fills in all the details automatically.</p>
+                        <ul class="feature-list" style="margin-top: 10px;">
+                            <li>Take photos of the front label (required) and back label (optional)</li>
+                            <li>AI extracts producer, vintage, variety, region, and more</li>
+                            <li>Optional: Include AI tasting insights for wine knowledge and notes</li>
+                        </ul>
+                        <div class="tip-box" style="margin-top: 15px;">
+                            <strong>📸 Pro Tips:</strong> Ensure labels are well-lit and in focus. Include the entire label in the frame. Avoid glare and reflections. Back labels often contain ABV, blend details, and region info.
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-card">
+                        <span class="emoji">✍️</span>
+                        <h4>2. Add Manually</h4>
+                        <p>Fill out a form with wine details yourself. Best for bottles with missing or damaged labels, or when you want complete control.</p>
+                    </div>
+                    
+                    <div class="workflow-card">
+                        <span class="emoji">📦</span>
+                        <h4>3. Store Existing Bottle</h4>
+                        <p>If you've already added a bottle to the system but it's not assigned to a slot, use this option to place it in this specific location.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>📸 Analyze Label Walkthrough</h2>
+                <p style="margin-bottom: 20px;">Here's a step-by-step look at how the AI label analysis works, from clicking an empty slot to seeing your bottle stored in your library.</p>
+
+                <div class="walkthrough-step">
+                    <h4><span class="step-number">1</span> Click an Empty Slot</h4>
+                    <p>Click on any empty slot in your rack and you'll see three options: <strong>Analyze Label</strong>, <strong>Add Manually</strong>, or <strong>Store Existing Bottle</strong>. Select "Analyze Label" to use the AI.</p>
+                    <img src="Main Adding a Bottle.png" class="screenshot" alt="Clicking an empty slot shows three options: Analyze Label, Add Manually, Store Existing Bottle">
+                </div>
+
+                <div class="walkthrough-step">
+                    <h4><span class="step-number">2</span> Upload or Capture Your Label</h4>
+                    <p>Upload a photo of the front label (required) and optionally the back label. If you already have a photo of your bottle on your device, use the <strong>"Choose File"</strong> option. If not, the easiest approach is to use a <strong>mobile device</strong> and allow the browser to access your camera — you can snap a photo right from this screen.</p>
+                    <p>Check <strong>"Include AI tasting insights"</strong> to get detailed information about the wine, including tasting notes, food pairings, drinking windows, and more.</p>
+                    <img src="Analyze Label Picture.png" class="screenshot" alt="Analyze Wine Label screen showing front label upload, back label option, and AI tasting insights checkbox">
+                </div>
+
+                <div class="walkthrough-step">
+                    <h4><span class="step-number">3</span> Review the AI Analysis</h4>
+                    <p>The AI analyzes your label and extracts wine details — name, producer, vintage, region, ABV, and more. Each field shows a <strong>confidence score</strong> so you can see how certain the AI is about each piece of information. If "AI Tasting Insights" was enabled, you'll also see detailed notes about the wine's character, drinking window, and food pairing suggestions.</p>
+                    <p>When you're satisfied, click <strong>"Create Bottle from Analysis"</strong> to proceed.</p>
+                    <div class="screenshot-group">
+                        <img src="Bottle Analysis Part 1.png" alt="AI analysis results showing extracted wine details with confidence scores">
+                        <img src="Bottle Analysis Part 2.png" alt="AI tasting insights and Create Bottle from Analysis button">
+                    </div>
+                </div>
+
+                <div class="walkthrough-step">
+                    <h4><span class="step-number">4</span> Confirm & Add the Bottle</h4>
+                    <p>The "Add New Bottle" form is pre-filled with all the AI-extracted data. You can review and edit any fields before saving — add a price, adjust the rating, or correct anything the AI may have missed. Your label photo and AI tasting notes are attached automatically. At the bottom, you'll see which slot the bottle will be stored in.</p>
+                    <p>Click <strong>"Add Bottle"</strong> to save it to your collection.</p>
+                    <div class="screenshot-group">
+                        <img src="Adding Bottle Part 1.png" alt="Add New Bottle form pre-filled with AI-extracted wine details">
+                        <img src="Adding bottle Part 2.png" alt="Bottom of form showing label images, AI notes, storage location, and Add Bottle button">
+                    </div>
+                </div>
+
+                <div class="walkthrough-step">
+                    <h4><span class="step-number">5</span> Your Bottle in the Library</h4>
+                    <p>That's it! Your bottle is now stored in your cellar. The Bottle Details view shows all the information at a glance — wine name, producer, vintage, variety, region, storage location, and the full AI tasting insights. You can access this from your rack view or the Bottles tab at any time.</p>
+                    <img src="Bottle in Library.png" class="screenshot" alt="Bottle Details view showing all stored information including AI tasting insights">
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🎯 Flexible Workflows</h2>
+                <p style="margin-bottom: 20px;">Cellar Manager adapts to how you organize:</p>
+                
+                <div class="workflow-card">
+                    <h4>🎲 Slot-by-Slot</h4>
+                    <p>Click a slot → Add bottle → Place it immediately. Perfect for organizing an existing collection or adding bottles as you purchase them.</p>
+                </div>
+                
+                <div class="workflow-card" style="margin-top: 15px;">
+                    <h4>📋 Add First, Organize Later</h4>
+                    <p>Add all your bottles without assigning them to slots (they'll show as "Unassigned"). Then organize them into your racks later when you have time.</p>
+                </div>
+                
+                <div class="workflow-card" style="margin-top: 15px;">
+                    <h4>➡️ Next Available Slot</h4>
+                    <p>Add a bottle and automatically place it in the next empty slot. Great for quickly cataloging a large collection.</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>📊 After Adding Bottles</h2>
+                
+                <div class="feature-highlight">
+                    <h4>What Happens Next?</h4>
+                    <ul class="feature-list">
+                        <li><strong>AI Research Notes:</strong> The system attaches detailed research about your wine</li>
+                        <li><strong>Winemaker Notes:</strong> If your wine is from a consortium member winery, you may receive notes directly from the winemaker</li>
+                        <li><strong>Bottle Actions:</strong> Mark bottles as "Enjoyed," "Gifted," "Broken," or "Deleted"</li>
+                        <li><strong>Tasting Notes:</strong> Capture your thoughts when you open a bottle</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="feedback-section">
+                <h2>💬 We Need Your Feedback!</h2>
+                <p>As an alpha tester, your honest feedback helps us build a better product. Please tell us:</p>
+                
+                <div class="feedback-questions">
+                    <ul>
+                        <li><strong>What's easy?</strong> Which features felt intuitive and natural to use?</li>
+                        <li><strong>What works?</strong> What did you love? What solved a real problem for you?</li>
+                        <li><strong>What sucks?</strong> Be brutally honest. What was confusing, frustrating, or broken?</li>
+                        <li><strong>What would you change?</strong> Tell us "I'd rather do it this way..." or "It would be better if..."</li>
+                        <li><strong>Did the AI get it right?</strong> How accurate was the label analysis?</li>
+                    </ul>
+                </div>
+                
+                <p style="margin-top: 20px; font-weight: 600;">Don't hold back — your critical feedback now means a better product for everyone later. Thank you for being part of this journey!</p>
+
+                <div style="text-align: center; margin-top: 25px;">
+                    <a href="mailto:info@wineappdev.com?subject=Cellar Manager Alpha Feedback" style="display: inline-block; background: #667eea; color: white; padding: 14px 36px; border-radius: 8px; text-decoration: none; font-size: 1.1em; font-weight: 600; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4); transition: all 0.3s;">Send Us Your Feedback</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
